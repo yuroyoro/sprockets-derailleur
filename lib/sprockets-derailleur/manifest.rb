@@ -116,6 +116,10 @@ module Sprockets
                   logger.debug "Writing #{target}"
                   asset.write_to target
                   asset.write_to "#{target}.gz" if asset.is_a?(BundledAsset)
+
+                  # write non-digest assets
+                  original = File.join(dir,  asset.logical_path)
+                  asset.write_to original
                 end
 
                 Marshal.dump(data, child_write)
